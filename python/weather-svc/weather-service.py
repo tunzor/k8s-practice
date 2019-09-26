@@ -16,7 +16,7 @@ def weather(city):
 
     locationData = requests.get(locationEndpoint)
     if locationData.text == '[]':
-        return 'City not found'
+        return 'Error: City not found'
     else:
         cityId = locationData.json()[0]["woeid"]
 
