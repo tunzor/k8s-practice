@@ -5,9 +5,10 @@ import os
 
 app = Flask(__name__)
 
-# weather_svc_url = os.environ['WEATHER_SVC_URL']
-# TODO calling localhost:5003 from docker container not working
-weather_svc_url = "http://localhost:5003"
+if "WEATHER_SVC_URL" in os.environ:
+    weather_svc_url = os.environ['WEATHER_SVC_URL']
+else:
+    weather_svc_url = "http://localhost:5003"
 
 
 @app.route('/')
@@ -18,8 +19,10 @@ def index():
 @app.route('/<city>')
 def weather(city):
     url = "{}/{}".format(weather_svc_url, city)
-    # TODO check if service is up
-    weatherData = requests.get(url).text
+    try:
+        weatherData = requests.get(url).text
+    except:
+        return 'Weather service is not available/reachable'
 
     if "Error" in weatherData:
         return 'The city <b>{}</b> was not found'.format(city)

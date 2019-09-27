@@ -14,7 +14,11 @@ def index():
 def weather(city):
     locationEndpoint = 'https://www.metaweather.com/api/location/search/?query={}'.format(city)
 
-    locationData = requests.get(locationEndpoint)
+    try:
+        locationData = requests.get(locationEndpoint)
+    except:
+        return 'Metaweather service not available/reachable'
+
     if locationData.text == '[]':
         return 'Error: City not found'
     else:
