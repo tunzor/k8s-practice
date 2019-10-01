@@ -21,4 +21,7 @@ spec:
         - containerPort: 5002
         env:
         - name: WEATHER_SVC_URL
-          value: "http://pyweather-backend-svc:8053"
+          valueFrom:
+            configMapKeyRef:
+              name: frontend-configmap
+              key: backend_url
