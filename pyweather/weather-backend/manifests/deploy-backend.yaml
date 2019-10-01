@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: pyweather-backend
-        image: tunzor/pyweather-backend:1.0
+        image: tunzor/pyweather-backend:distroless
         ports:
         - containerPort: 5003
